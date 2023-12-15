@@ -23,12 +23,22 @@ app.post("/pets", (req, res) => {
 });
 
 app.get("/pets/:index", (req, res, next) => {
+  console.log("req params", req.params);
   const { index } = req.params;
   console.log("id", index);
   if (Number.isInteger(Number(index)) && index < petData.length && index >= 0) {
     res.send(petData[index]);
   }
   next();
+});
+
+app.patch("/pets/:index", (req, res) => {
+  const { index } = req.params;
+  const update = req.body;
+  Object.assign(petData[index], update);
+  fs.writeFile("../pets.json", JSON.stringify(petData), () => {
+    res.status(200).send(petData[index]);
+  });
 });
 
 app.listen(5000, () => {

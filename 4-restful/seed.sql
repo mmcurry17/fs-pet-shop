@@ -1,0 +1,1 @@
+INSERT INTO pets (age, kind, name) VALUES (7, 'dog', 'Fido'), (5, 'snake', 'Buttons');
